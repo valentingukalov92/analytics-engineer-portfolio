@@ -1,4 +1,4 @@
-# analytics-engineering-portfolio
+# analytics-engineer-portfolio
 Real-world case studies in SQL optimization, data modeling, and analytics
 engineering — drawn from hands-on experience with Teradata, Python, Airflow,
 and dbt.
