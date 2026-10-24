@@ -1,9 +1,13 @@
-# analytics-engineer-portfolio
+# analytics-engineering-portfolio
+
 Real-world case studies in SQL optimization, data modeling, and analytics
 engineering — drawn from hands-on experience with Teradata, Python, Airflow,
 and dbt.
 
 ## Projects
+
+### [dbt] Re-registrations Modeling
+*(coming soon — placeholder)*
 
 ### [Teradata UDF Optimization](./teradata-udf-optimization/)
 Replaced 6–7 nested `SUBSTR` calls with a single `STRTOK` in a
@@ -18,10 +22,17 @@ across a team of 30 purchasing managers.
 
 *Stack: Excel VBA, process automation*
 
----
+## Data Quality Library
 
-*More case studies coming soon — including dbt modeling and fraud
-detection pipelines.*
+A reusable Teradata validation framework I designed and built — generic and
+relational checks, severity folding, and HTML reporting. Now used across the
+team's data pipelines.
+
+[→ Read the case study](./data-quality-library/)
+
+*Stack: Python, Teradata SQL, testing*
+
+---
 
 ## About
 
