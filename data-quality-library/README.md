@@ -1,7 +1,7 @@
 # Data Quality Library
 
 A reusable Teradata validation framework I designed and built — generic and
-relational checks, severity folding, and HTML reporting. Now the standard across the team's.
+relational checks, severity folding, and HTML reporting. Now used across the team's pipelines.
 
 ## Why
 
@@ -39,8 +39,7 @@ same shape.
 ## Reporting
 
 `run_checks()` aggregates results into an overall status, pass/fail counts,
-and a per-severity breakdown. `render_warnings_html()` renders the failed
-checks as an HTML table for embedding in reports or emails.
+and a per-severity breakdown. `render_warnings_html()` render_warnings_html() renders checks with the given statuses (default: WARNING) as an HTML table for embedding in reports or emails.
 
 The severity model lets a pipeline fail on `CRITICAL` while only warning
 on `WARNING`.
@@ -53,19 +52,19 @@ See [`examples/`](./examples/) for real (sanitized) cases.
 from libs import dq_library as dq
 
 results = [
-    check_relationships(
+    dq.check_relationships(
         source_table="fct_orders",
         source_column="customer_id",
         target_table="dim_customers",
         target_column="customer_id",
         severity=CRITICAL,
     ),
-    check_duplicates(
+    dq.check_duplicates(
         table_name="fct_orders",
         unique_columns=["order_id"],
         severity=CRITICAL,
     ),
 ]
 
-summary = run_checks(results)
+summary = dq.run_checks(results)
 # {"overall_status": "PASS", "total": 2, "passed": 2, "failed": 0, ...}
