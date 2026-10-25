@@ -50,7 +50,7 @@ on `WARNING`.
 See [`examples/`](./examples/) for real (sanitized) cases.
 
 ```python
-from data_quality import check_relationships, run_checks
+from libs import dq_library as dq
 
 results = [
     check_relationships(
