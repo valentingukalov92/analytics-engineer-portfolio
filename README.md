@@ -1,4 +1,4 @@
-# analytics-engineering-portfolio
+# analytics-engineer-portfolio
 
 Real-world case studies in SQL optimization, data modeling, and analytics
 engineering — drawn from hands-on experience with Teradata, Python, Airflow,
@@ -6,8 +6,13 @@ and dbt.
 
 ## Projects
 
-### [dbt] Re-registrations Modeling
-*(coming soon — placeholder)*
+### [dbt Monetizing Dashboard Modeling](./monetizing-dashboard-dbt/)
+Layered dbt project (staging → intermediate → marts) modelling a cross-sell
+monetizing dashboard at daily / weekly / monthly grain. Grain-aware tests,
+`COUNT(DISTINCT)` metrics, and a singular test for cross-grain consistency.
+Runs locally on DuckDB — `pip install` + `dbt build`, no cloud account.
+
+*Stack: dbt, DuckDB, SQL, data modeling, testing*
 
 ### [Teradata UDF Optimization](./teradata-udf-optimization/)
 Replaced 6–7 nested `SUBSTR` calls with a single `STRTOK` in a
