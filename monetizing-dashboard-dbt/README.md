@@ -25,6 +25,8 @@ dbt build
 `dbt build` runs seeds → models → tests in dependency order.
 Expected result: `PASS=37 WARN=0 ERROR=0`.
 
+profiles.yml is committed for reproducibility — DuckDB, no credentials.
+
 ## Architecture
 
 ```
