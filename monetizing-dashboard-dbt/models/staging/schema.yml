@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: stg_channels
+    description: "Channel dictionary — one row per contact channel."
+    columns:
+      - name: contact_channel
+        description: "Channel name (SMS, Email, App-push, Stories, Banner)."
+        tests:
+          - unique
+          - not_null
+      - name: channel_group
+        description: "Higher-level grouping: Direct or Display."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Direct", "Display"]
+
+  - name: stg_contacts
+    description: >
+      Cleaned raw contacts. Grain is (contact_id, contact_date, contact_channel,
+      product_promoted, device_type_name). Raw events may repeat; deduplication
+      happens in aggregation, so no `unique` test is applied here.
+    columns:
+      - name: contact_id
+        description: "Subscriber identifier (1..1000 synthetic pool)."
+        tests:
+          - not_null
+      - name: contact_date
+        description: "Calendar date of the contact."
+        tests:
+          - not_null
+      - name: contact_channel
+        description: "Channel through which the contact was made."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_channels')
+                field: contact_channel
+      - name: product_promoted
+        description: "Partner product promoted in the contact."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Carsharing", "Debit card", "Credit card", "Videoplatform", "Browser"]
+      - name: device_type_name
+        description: "Device type used for the contact."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Phone", "Tablet", "Desktop"]
+      - name: contact_count
+        description: "Number of contacts in this event (1..50)."
+        tests:
+          - not_null

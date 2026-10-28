@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: int_contacts_enriched
+    description: "Contacts enriched with channel_group. Same grain as stg_contacts."
+    columns:
+      - name: contact_id
+        tests:
+          - not_null
+      - name: channel_group
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Direct", "Display"]

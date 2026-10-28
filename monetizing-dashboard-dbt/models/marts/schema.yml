@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: mart_monetizing_daily
+    description: >
+      Daily monetizing aggregation. Grain: (day_date, contact_channel,
+      channel_group, product_promoted, device_type_name).
+    columns:
+      - name: day_date
+        tests:
+          - not_null
+      - name: total_contacts
+        tests:
+          - not_null
+      - name: unique_contacts
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - day_date
+              - contact_channel
+              - channel_group
+              - product_promoted
+              - device_type_name
+
+  - name: mart_monetizing_weekly
+    description: >
+      Weekly monetizing aggregation. Grain: (week_date, contact_channel,
+      channel_group, product_promoted, device_type_name).
+    columns:
+      - name: week_date
+        tests:
+          - not_null
+      - name: total_contacts
+        tests:
+          - not_null
+      - name: unique_contacts
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - week_date
+              - contact_channel
+              - channel_group
+              - product_promoted
+              - device_type_name
+
+  - name: mart_monetizing_monthly
+    description: >
+      Monthly monetizing aggregation. Grain: (month_date, contact_channel,
+      channel_group, product_promoted, device_type_name).
+    columns:
+      - name: month_date
+        tests:
+          - not_null
+      - name: total_contacts
+        tests:
+          - not_null
+      - name: unique_contacts
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - month_date
+              - contact_channel
+              - channel_group
+              - product_promoted
+              - device_type_name
