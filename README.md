@@ -14,6 +14,19 @@ Runs locally on DuckDB — `pip install` + `dbt build`, no cloud account.
 
 *Stack: dbt, DuckDB, SQL, data modeling, testing*
 
+### Campaign Aggregation Optimization
+
+Reworked a weekly Teradata procedure producing 16 slice combinations per
+campaign (a `GROUPING SETS`-style pattern implemented as 16 INSERTs). Split
+the volatile table by event distribution (views ~80%, opens ~15%, clicks ~5%),
+replaced `COUNT(DISTINCT CASE ...)` with `COUNT(DISTINCT)`, and restructured
+each block into 1 INSERT + 2 UPDATE. Achieved ~4x reduction in CPU total time,
+IO operations, and runtime.
+
+→ [Read the case study](campaign-aggregation-optimization/README.md)
+
+_Stack: Teradata SQL, data modeling_
+
 ### [Teradata UDF Optimization](./teradata-udf-optimization/)
 Replaced 6–7 nested `SUBSTR` calls with a single `STRTOK` in a
 widely-used UDF, achieving ~4x CPU reduction on 10M+ row workloads.
