@@ -119,14 +119,18 @@ COUNT(DISTINCT subs_id) AS opens_unique
 Each of the 16 slice blocks now writes views first, then updates opens and clicks on the same row — instead of re-scanning the full volatile table for every metric.
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph BEFORE["Before"]
-        direction LR
         V0["Single volatile table<br/>all events · 100% rows"]
-        V0 --> B1["INSERT agg #1"]
-        V0 --> B2["INSERT agg #2"]
-        V0 --> B3["..."]
-        V0 --> B16["INSERT agg #16"]
+        B1["INSERT agg #1"]
+        B2["INSERT agg #2"]
+        B3["..."]
+        B16["INSERT agg #16"]
+        
+        V0 --> B1
+        V0 --> B2
+        V0 --> B3
+        V0 --> B16
     end
 ```
 
