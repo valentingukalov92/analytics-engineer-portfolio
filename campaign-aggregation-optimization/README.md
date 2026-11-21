@@ -122,6 +122,7 @@ Each of the 16 slice blocks now writes views first, then updates opens and click
 flowchart TD
     subgraph BEFORE["Before"]
         V0["Single volatile table<br/>all events · 100% rows"]
+        
         B1["INSERT agg #1"]
         B2["INSERT agg #2"]
         B3["..."]
@@ -138,13 +139,34 @@ flowchart TD
 flowchart LR
     subgraph AFTER["After"]
         direction LR
-        VV["vt_views<br/>~100% rows"] --> INS["INSERT<br/>views + unique views"]
-        VO["vt_opens<br/>~15% rows"] --> UO["UPDATE<br/>opens + unique opens"]
-        VC["vt_clicks<br/>~5% rows"] --> UC["UPDATE<br/>clicks + unique clicks"]
-        INS --> TGT[("Aggregation table")]
+        
+        %% Волатилки
+        VV["vt_views<br/>~100% rows"]
+        VO["vt_opens<br/>~15% rows"]
+        VC["vt_clicks<br/>~5% rows"]
+        
+        %% Действия
+        INS["INSERT<br/>views + unique views"]
+        UO["UPDATE<br/>opens + unique opens"]
+        UC["UPDATE<br/>clicks + unique clicks"]
+        
+        %% Целевая таблица
+        TGT[("Aggregation table")]
+        
+        %% Связи
+        VV --> INS
+        VO --> UO
+        VC --> UC
+        
+        INS --> TGT
         UO --> TGT
         UC --> TGT
     end
+    
+    style VV fill:#1f3a2e,stroke:#4caf50,color:#fff
+    style VO fill:#3a2e1f,stroke:#ff9800,color:#fff
+    style VC fill:#3a1f1f,stroke:#f44336,color:#fff
+    style TGT fill:#2e2e3a,stroke:#9e9e9e,color:#fff
 ```
 
 The 16 slices are unchanged — the same `GROUPING SETS`-style combinations are produced, but each block now touches only the data it needs.
