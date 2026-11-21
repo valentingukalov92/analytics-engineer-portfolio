@@ -14,7 +14,7 @@ Runs locally on DuckDB — `pip install` + `dbt build`, no cloud account.
 
 *Stack: dbt, DuckDB, SQL, data modeling, testing*
 
-### Campaign Aggregation Optimization
+### [Campaign Aggregation Optimization](./campaign-aggregation-optimization/)
 
 Reworked a weekly Teradata procedure producing 16 slice combinations per
 campaign (a `GROUPING SETS`-style pattern implemented as 16 INSERTs). Split
@@ -23,7 +23,7 @@ replaced `COUNT(DISTINCT CASE ...)` with `COUNT(DISTINCT)`, and restructured
 each block into 1 INSERT + 2 UPDATE. Achieved ~4x reduction in CPU total time,
 IO operations, and runtime.
 
-→ [Read the case study](campaign-aggregation-optimization/README.md)
+*Stack: Teradata SQL, data modeling*
 
 _Stack: Teradata SQL, data modeling_
 
